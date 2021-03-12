@@ -39,6 +39,7 @@ _global_script_class_icons={
 [application]
 
 config/name="kalodrum"
+run/main_scene="res://Scenes/Main_scene.tscn"
 config/icon="res://icon.png"
 
 [autoload]
