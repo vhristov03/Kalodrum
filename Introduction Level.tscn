@@ -4,30 +4,66 @@
 [ext_resource path="res://Images/PeshoProgramista/peshoProgramista.png" type="Texture" id=2]
 [ext_resource path="res://PeshoProgramista/PeshoProgramista.gd" type="Script" id=3]
 [ext_resource path="res://Introduction Level.gd" type="Script" id=4]
-[ext_resource path="res://avatar.jpg" type="Texture" id=5]
+[ext_resource path="res://background_mountains.png" type="Texture" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 20.0439
+radius = 25.9999
 
 [node name="Introduction Level" type="Node2D"]
-position = Vector2( 0.412598, 0.396851 )
+position = Vector2( -0.094553, -1.75207 )
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 600.251 ],
+"_edit_vertical_guides_": [ 1023.96, 1028.6 ]
+}
 
 [node name="TileMap" type="TileMap" parent="."]
+position = Vector2( -2.51984, 1.25992 )
 format = 1
 
-[node name="TextureRect" type="TextureRect" parent="."]
-margin_left = 126.181
-margin_top = -4.80606
-margin_right = 586.181
-margin_bottom = 455.194
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.05, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackground/ParallaxLayer"]
+margin_left = -920.0
+margin_top = 222.0
+margin_right = 2208.0
+margin_bottom = 351.0
 texture = ExtResource( 5 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.5, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackground/ParallaxLayer2"]
+margin_left = -982.584
+margin_top = 237.881
+margin_right = 2200.42
+margin_bottom = 364.881
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2"]
+margin_left = -904.434
+margin_top = 71.162
+margin_right = 2222.57
+margin_bottom = 253.162
+color = Color( 0.298039, 0.298039, 0.298039, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="PeshoProgramista" type="Area2D" parent="."]
-position = Vector2( 339.877, 227.656 )
+position = Vector2( 375.727, 362.959 )
 script = ExtResource( 3 )
 
 [node name="peshoProgramista" type="Sprite" parent="PeshoProgramista"]
@@ -37,16 +73,14 @@ texture = ExtResource( 2 )
 [node name="Camera2D" type="Camera2D" parent="PeshoProgramista/peshoProgramista"]
 position = Vector2( 0.490509, 4.80891 )
 current = true
-limit_left = 0
-limit_top = 0
 smoothing_enabled = true
 drag_margin_top = 1.0
 
 [node name="sword" type="Sprite" parent="PeshoProgramista/peshoProgramista"]
-position = Vector2( 14.355, -2.6144 )
+position = Vector2( 14.5534, -0.630142 )
 rotation = -0.610865
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PeshoProgramista"]
-position = Vector2( 1.61013, -3.21343 )
+position = Vector2( -0.0986407, 0.815258 )
 shape = SubResource( 1 )
