@@ -1,23 +1,48 @@
-extends Area2D
-var jumpspeed = 0
-var speed = 10
-var GravitySpeed = 10
- 
-func _ready():
-	print("Na pesho mu e sprql toka")
+extends KinematicBody2D
 
-func _process(delta):
-	var inputx = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	position.x = position.x + inputx * speed
+export (int) var speed = 10000
+var velocity = Vector2()
+
+
+func _ready():
+	pass
+
+func get_input(delta):
+	velocity = Vector2()
+	velocity.y += 1
+	if Input.is_action_pressed("collide"):
+		velocity.y -= 1
+	if Input.is_action_pressed('move_right'):
+		velocity.x += 1
+	if Input.is_action_pressed('move_left'):
+		velocity.x -= 1
+	if Input.is_action_pressed("jump"):
+		velocity.y -= 2
+	velocity = velocity.normalized() * speed * delta
 	
-	var inputy = Input.is_action_just_pressed("jump")
-	if inputy == true:
-		jumpspeed = 110
-	position.y = clamp(position.y + gravity - jumpspeed , 0, 500)
-	jumpspeed = clamp(jumpspeed-1,0,110)
 	
 	
 	
 	
+
+func _physics_process(delta):
+	get_input(delta)
+	velocity = move_and_slide(velocity)
 	
+
+
+
+func _on_Area2D_area_entered(area):
+	if "platform" in area.get_name():
+		Input.action_press("collide")
+		print("collision")
+	pass # Replace with function body.
 	
+
+
+
+func _on_Area2D_area_exited(area):
+	if "platform" in area.get_name():
+		Input.action_release("collide")
+		print("No longer colliding")
+	pass # Replace with function body.
