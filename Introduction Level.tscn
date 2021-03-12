@@ -37,6 +37,8 @@ texture = ExtResource( 2 )
 [node name="Camera2D" type="Camera2D" parent="PeshoProgramista/peshoProgramista"]
 position = Vector2( 0.490509, 4.80891 )
 current = true
+limit_left = 0
+limit_top = 0
 smoothing_enabled = true
 drag_margin_top = 1.0
 
