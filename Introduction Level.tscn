@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Images/Sword/sword.png" type="Texture" id=1]
 [ext_resource path="res://Images/PeshoProgramista/peshoProgramista.png" type="Texture" id=2]
 [ext_resource path="res://PeshoProgramista/PeshoProgramista.gd" type="Script" id=3]
 [ext_resource path="res://Introduction Level.gd" type="Script" id=4]
+[ext_resource path="res://avatar.jpg" type="Texture" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 20.0439
@@ -15,6 +16,16 @@ script = ExtResource( 4 )
 [node name="TileMap" type="TileMap" parent="."]
 format = 1
 
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = 126.181
+margin_top = -4.80606
+margin_right = 586.181
+margin_bottom = 455.194
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="PeshoProgramista" type="Area2D" parent="."]
 position = Vector2( 339.877, 227.656 )
 script = ExtResource( 3 )
@@ -25,6 +36,11 @@ texture = ExtResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="PeshoProgramista/peshoProgramista"]
 position = Vector2( 0.490509, 4.80891 )
+current = true
+limit_left = 0
+limit_top = 0
+smoothing_enabled = true
+drag_margin_top = 1.0
 
 [node name="sword" type="Sprite" parent="PeshoProgramista/peshoProgramista"]
 position = Vector2( 14.355, -2.6144 )
