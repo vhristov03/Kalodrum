@@ -13,13 +13,14 @@ var respawn_y
 var in_fire_zone = false
 var wall_jumps_remaining = 1
 
+var timer_for_intro = 0
+
 func _ready():
 	pass
 
 
 func get_input():
 	velocity.x = 0
-	
 	
 	if Input.is_action_pressed('ui_right'):
 		velocity.x += speed
@@ -52,27 +53,32 @@ func get_input():
 		wall_jumps_remaining = 1
 
 func _physics_process(delta):
-	get_input()
-	velocity.y += gravity * delta
+	timer_for_intro += 1
 	
-	if is_jumping and is_on_floor():
-		is_jumping = false
-	
-	if !is_on_floor() and can_double_jump and Input.is_action_just_pressed('ui_up'):
-		velocity.y = jump_speed
-		can_double_jump = false
-	
-	if !is_on_floor() and is_on_wall():
-		can_double_jump = false
-		if !is_flipped:
-			velocity.x -= speed
-		if is_flipped:
-			velocity.x += speed
-		velocity.y = velocity.y * 0.5
-		is_jumping = false
+	# all input is blocked for 40 seconds (the duration of the intro)
+	if timer_for_intro >= 660:
+		
 		get_input()
-	
-	velocity = move_and_slide(velocity, Vector2(0, -1))
+		velocity.y += gravity * delta
+		
+		if is_jumping and is_on_floor():
+			is_jumping = false
+		
+		if !is_on_floor() and can_double_jump and Input.is_action_just_pressed('ui_up'):
+			velocity.y = jump_speed
+			can_double_jump = false
+		
+		if !is_on_floor() and is_on_wall():
+			can_double_jump = false
+			if !is_flipped:
+				velocity.x -= speed
+			if is_flipped:
+				velocity.x += speed
+			velocity.y = velocity.y * 0.5
+			is_jumping = false
+			get_input()
+		
+		velocity = move_and_slide(velocity, Vector2(0, -1))
 
 
 func flip_right():
