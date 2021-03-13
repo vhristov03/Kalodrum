@@ -30,12 +30,14 @@ func get_input():
 		is_jumping = true
 		can_double_jump = true
 	
-	if Input.is_action_pressed('ui_up') and Input.is_action_pressed('ui_right') and !is_on_floor() and is_on_wall():
+	if Input.is_action_pressed('ui_up') and Input.is_action_pressed('ui_right') and !is_on_floor() and is_on_wall() and is_flipped:
 		velocity.y = jump_speed
+		velocity.x += speed
 		is_jumping = true
 	
-	if Input.is_action_pressed('ui_up') and Input.is_action_pressed('ui_left') and !is_on_floor() and is_on_wall():
+	if Input.is_action_pressed('ui_up') and Input.is_action_pressed('ui_left') and !is_on_floor() and is_on_wall() and !is_flipped:
 		velocity.y = jump_speed
+		velocity.x -= speed
 		is_jumping = true
 
 func _physics_process(delta):
@@ -50,7 +52,11 @@ func _physics_process(delta):
 		can_double_jump = false
 	
 	if !is_on_floor() and is_on_wall():
-		velocity.x = 0
+		can_double_jump = false
+		if !is_flipped:
+			velocity.x -= speed
+		if is_flipped:
+			velocity.x += speed
 		velocity.y = velocity.y * 0.5
 		is_jumping = false
 		get_input()
@@ -72,6 +78,7 @@ func _process(delta):
 		$pesho_jump.flip_h = false
 		$pesho_idle.flip_h = false
 		$pesho_hang.flip_h = false
+		is_flipped = false
 		
 		$AnimationPlayer.play('run')
 	
@@ -88,6 +95,7 @@ func _process(delta):
 		$pesho_jump.flip_h = true
 		$pesho_idle.flip_h = true
 		$pesho_hang.flip_h = true
+		is_flipped = true
 		
 		$AnimationPlayer.play('run')
 	
@@ -98,6 +106,7 @@ func _process(delta):
 		$pesho_jump.flip_h = false
 		$pesho_idle.flip_h = false
 		$pesho_hang.flip_h = false
+		is_flipped = false
 	
 	#w while trying to turn left mid-air
 	if Input.is_action_pressed('ui_left'):
@@ -106,6 +115,7 @@ func _process(delta):
 		$pesho_jump.flip_h = true
 		$pesho_idle.flip_h = true
 		$pesho_hang.flip_h = true
+		is_flipped = true
 	
 	# while pressing up
 	if !is_on_floor():
@@ -127,6 +137,7 @@ func _process(delta):
 		
 		# managing character orientation
 		$pesho_jump.flip_h = false
+		is_flipped = false
 		
 		$AnimationPlayer.play('jump')
 	
@@ -140,6 +151,7 @@ func _process(delta):
 		
 		# managing character orientation
 		$pesho_jump.flip_h = true
+		is_flipped = true
 		
 		$AnimationPlayer.play('jump')
 	
