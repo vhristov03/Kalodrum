@@ -75,6 +75,24 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector2(0, -1))
 
 
+func flip_right():
+	$pesho_run.flip_h = false
+	$pesho_jump.flip_h = false
+	$pesho_idle.flip_h = false
+	$pesho_hang.flip_h = false
+	$pesho_extinguish.flip_h = false
+	is_flipped = false
+
+
+func flip_left():
+	$pesho_run.flip_h = true
+	$pesho_jump.flip_h = true
+	$pesho_idle.flip_h = true
+	$pesho_hang.flip_h = true
+	$pesho_extinguish.flip_h = true
+	is_flipped = true
+
+
 func _process(delta):
 	# while pressing right while on ground
 	if Input.is_action_pressed('ui_right') and is_on_floor():
@@ -82,14 +100,11 @@ func _process(delta):
 		$pesho_jump.hide()
 		$pesho_idle.hide()
 		$pesho_hang.hide()
+		$pesho_extinguish.hide()
 		$pesho_run.show()
 		
 		# managing character orientation
-		$pesho_run.flip_h = false
-		$pesho_jump.flip_h = false
-		$pesho_idle.flip_h = false
-		$pesho_hang.flip_h = false
-		is_flipped = false
+		flip_right()
 		
 		$AnimationPlayer.play('run')
 	
@@ -99,34 +114,23 @@ func _process(delta):
 		$pesho_jump.hide()
 		$pesho_idle.hide()
 		$pesho_hang.hide()
+		$pesho_extinguish.hide()
 		$pesho_run.show()
 		
 		# managing character orientation
-		$pesho_run.flip_h = true
-		$pesho_jump.flip_h = true
-		$pesho_idle.flip_h = true
-		$pesho_hang.flip_h = true
-		is_flipped = true
+		flip_left()
 		
 		$AnimationPlayer.play('run')
 	
 	# while trying to turn right mid-air
 	if Input.is_action_pressed('ui_right'):
 		# managing character orientation
-		$pesho_run.flip_h = false
-		$pesho_jump.flip_h = false
-		$pesho_idle.flip_h = false
-		$pesho_hang.flip_h = false
-		is_flipped = false
+		flip_right()
 	
 	#w while trying to turn left mid-air
 	if Input.is_action_pressed('ui_left'):
 		# managing character orientation
-		$pesho_run.flip_h = true
-		$pesho_jump.flip_h = true
-		$pesho_idle.flip_h = true
-		$pesho_hang.flip_h = true
-		is_flipped = true
+		flip_left()
 	
 	# while pressing up
 	if !is_on_floor():
@@ -134,6 +138,7 @@ func _process(delta):
 		$pesho_run.hide()
 		$pesho_idle.hide()
 		$pesho_hang.hide()
+		$pesho_extinguish.hide()
 		$pesho_jump.show()
 		
 		$AnimationPlayer.play('jump')
@@ -144,6 +149,7 @@ func _process(delta):
 		$pesho_run.hide()
 		$pesho_idle.hide()
 		$pesho_hang.hide()
+		$pesho_extinguish.hide()
 		$pesho_jump.show()
 		
 		# managing character orientation
@@ -158,6 +164,7 @@ func _process(delta):
 		$pesho_run.hide()
 		$pesho_idle.hide()
 		$pesho_hang.hide()
+		$pesho_extinguish.hide()
 		$pesho_jump.show()
 		
 		# managing character orientation
@@ -172,6 +179,7 @@ func _process(delta):
 		$pesho_jump.hide()
 		$pesho_run.hide()
 		$pesho_hang.hide()
+		$pesho_extinguish.hide()
 		$pesho_idle.show()
 		
 		$AnimationPlayer.play('idle')
@@ -180,10 +188,15 @@ func _process(delta):
 		$pesho_jump.hide()
 		$pesho_run.hide()
 		$pesho_idle.hide()
+		$pesho_extinguish.hide()
 		$pesho_hang.show()
 		
-	if Input.is_action_pressed("extinguish") and in_fire_zone == true:
-		print("Extinguishing")
+	if Input.is_action_pressed('ui_down') and in_fire_zone == true:
+		$pesho_jump.hide()
+		$pesho_run.hide()
+		$pesho_idle.hide()
+		$pesho_hang.hide()
+		$pesho_extinguish.show()
 	
 	if position.y >= 500:
 		position.x = respawn_x
