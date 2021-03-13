@@ -11,6 +11,7 @@ var is_flipped = false
 var respawn_x
 var respawn_y
 var in_fire_zone = false
+var wall_jumps_remaining = 1
 
 func _ready():
 	pass
@@ -18,6 +19,7 @@ func _ready():
 
 func get_input():
 	velocity.x = 0
+	
 	
 	if Input.is_action_pressed('ui_right'):
 		velocity.x += speed
@@ -30,15 +32,24 @@ func get_input():
 		is_jumping = true
 		can_double_jump = true
 	
-	if Input.is_action_pressed('ui_up') and Input.is_action_pressed('ui_right') and !is_on_floor() and is_on_wall() and is_flipped:
-		velocity.y = jump_speed
-		velocity.x += speed
+	if Input.is_action_pressed('ui_up') and Input.is_action_pressed('ui_left') and !is_on_floor() and is_on_wall() and is_flipped and wall_jumps_remaining == 1:
+		velocity.y = jump_speed*2
+		velocity.x += speed*2
 		is_jumping = true
+		wall_jumps_remaining = 0
+		Input.action_release("ui_left")
+		
 	
-	if Input.is_action_pressed('ui_up') and Input.is_action_pressed('ui_left') and !is_on_floor() and is_on_wall() and !is_flipped:
-		velocity.y = jump_speed
-		velocity.x -= speed
+	if Input.is_action_pressed('ui_up') and Input.is_action_pressed('ui_right') and !is_on_floor() and is_on_wall() and !is_flipped and wall_jumps_remaining == 1:
+		velocity.y = jump_speed*2
+		velocity.x -= speed*2
 		is_jumping = true
+		wall_jumps_remaining = 0
+		Input.action_release("ui_right")
+		
+	
+	if is_on_floor():
+		wall_jumps_remaining = 1
 
 func _physics_process(delta):
 	get_input()
@@ -177,6 +188,7 @@ func _process(delta):
 	if position.y >= 500:
 		position.x = respawn_x
 		position.y = respawn_y
+
 
 
 func _on_Area2D_area_entered(area):
