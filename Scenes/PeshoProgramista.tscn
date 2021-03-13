@@ -91,7 +91,6 @@ position = Vector2( 1.33482, -3.3105 )
 scale = Vector2( 0.176213, 0.176213 )
 texture = ExtResource( 3 )
 hframes = 2
-frame = 1
 
 [node name="pesho_hang" type="Sprite" parent="."]
 position = Vector2( 0.0908813, -2.4126 )
@@ -107,7 +106,6 @@ shape = SubResource( 1 )
 position = Vector2( -2.12659, -17.6638 )
 offset = Vector2( 0, -45 )
 current = true
-zoom = Vector2( 0.6, 0.57 )
 limit_left = 0
 limit_bottom = 1000
 drag_margin_v_enabled = true
@@ -121,9 +119,10 @@ anims/idle = SubResource( 2 )
 anims/jump = SubResource( 3 )
 anims/run = SubResource( 4 )
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Pesho" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pesho"]
 position = Vector2( 0, -4.20447 )
 shape = SubResource( 5 )
-[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_entered" from="Pesho" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_exited" from="Pesho" to="." method="_on_Pesho_area_exited"]
