@@ -10,7 +10,7 @@ var can_double_jump = false
 var is_flipped = false
 var respawn_x
 var respawn_y
-
+var in_fire_zone = false
 
 func _ready():
 	pass
@@ -158,6 +158,9 @@ func _process(delta):
 		$pesho_run.hide()
 		$pesho_idle.hide()
 		$pesho_hang.show()
+		
+	if Input.is_action_pressed("extinguish") and in_fire_zone == true:
+		print("Extinguishing")
 	
 	if position.y >= 500:
 		position.x = respawn_x
@@ -171,4 +174,11 @@ func _on_Area2D_area_entered(area):
 		respawn_x = position.x
 		respawn_y = position.y
 		print("Checkpoint reached")
+	if "Fire" in area.get_name():
+		in_fire_zone = true
 	
+
+
+func _on_Pesho_area_exited(area):
+	if "Fire" in area.get_name():
+		in_fire_zone = false
