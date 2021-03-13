@@ -38,7 +38,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="kalodrum"
+config/name="Pesho for Nature"
 run/main_scene="res://Scenes/Main_scene.tscn"
 config/icon="res://icon.png"
 
@@ -51,11 +51,18 @@ RestHandler="*res://addons/github-integration/scenes/RestHandler.tscn"
 
 [display]
 
+window/size/borderless=true
+window/size/fullscreen=true
 window/stretch/mode="viewport"
 
 [editor_plugins]
 
 enabled=PoolStringArray( "github-integration" )
+
+[global]
+
+pixel=false
+snap=false
 
 [input]
 
@@ -80,4 +87,5 @@ move_left={
 
 [rendering]
 
+quality/2d/use_pixel_snap=true
 environment/default_environment="res://default_env.tres"

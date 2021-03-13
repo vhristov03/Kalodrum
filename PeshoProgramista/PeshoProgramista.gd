@@ -8,6 +8,8 @@ var velocity = Vector2()
 var is_jumping = false
 var can_double_jump = false
 var is_flipped = false
+var respawn_x
+var respawn_y
 
 
 func _ready():
@@ -127,3 +129,17 @@ func _process(delta):
 		$pesho_idle.show()
 		
 		$AnimationPlayer.play('idle')
+		
+	if position.y >= 500:
+		position.x = respawn_x
+		position.y = respawn_y
+
+
+func _on_Area2D_area_entered(area):
+	if "f_ex" in area.get_name():
+		print("Fire extinguisher picked up")
+	if "Checkpoint" in area.get_name():
+		respawn_x = position.x
+		respawn_y = position.y
+		print("Checkpoint reached")
+	
