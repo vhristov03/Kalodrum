@@ -29,7 +29,14 @@ func get_input():
 		velocity.y = jump_speed
 		is_jumping = true
 		can_double_jump = true
-
+	
+	if Input.is_action_pressed('ui_up') and Input.is_action_pressed('ui_right') and !is_on_floor() and is_on_wall():
+		velocity.y = jump_speed
+		is_jumping = true
+	
+	if Input.is_action_pressed('ui_up') and Input.is_action_pressed('ui_left') and !is_on_floor() and is_on_wall():
+		velocity.y = jump_speed
+		is_jumping = true
 
 func _physics_process(delta):
 	get_input()
@@ -41,6 +48,12 @@ func _physics_process(delta):
 	if !is_on_floor() and can_double_jump and Input.is_action_just_pressed('ui_up'):
 		velocity.y = jump_speed
 		can_double_jump = false
+	
+	if !is_on_floor() and is_on_wall():
+		velocity.x = 0
+		velocity.y = velocity.y * 0.5
+		is_jumping = false
+		get_input()
 	
 	velocity = move_and_slide(velocity, Vector2(0, -1))
 
