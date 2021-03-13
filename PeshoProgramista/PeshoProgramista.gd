@@ -44,7 +44,7 @@ func _physics_process(delta):
 
 
 func _process(delta):
-	# while pressing right
+	# while pressing right while on ground
 	if Input.is_action_pressed('ui_right') and is_on_floor():
 		# managing animation visibility
 		$pesho_jump.hide()
@@ -58,7 +58,7 @@ func _process(delta):
 		
 		$AnimationPlayer.play('run')
 	
-	# while pressing left
+	# while pressing left while on the ground
 	if Input.is_action_pressed('ui_left') and is_on_floor():
 		# managing animation visibility
 		$pesho_jump.hide()
@@ -71,6 +71,20 @@ func _process(delta):
 		$pesho_idle.flip_h = true
 		
 		$AnimationPlayer.play('run')
+	
+	# while trying to turn right mid-air
+	if Input.is_action_pressed('ui_right'):
+		# managing character orientation
+		$pesho_run.flip_h = false
+		$pesho_jump.flip_h = false
+		$pesho_idle.flip_h = false
+	
+	#w while trying to turn left mid-air
+	if Input.is_action_pressed('ui_left'):
+		# managing character orientation
+		$pesho_run.flip_h = true
+		$pesho_jump.flip_h = true
+		$pesho_idle.flip_h = true
 	
 	# while pressing up
 	if !is_on_floor():
