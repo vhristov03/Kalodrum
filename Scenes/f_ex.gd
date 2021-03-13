@@ -12,3 +12,4 @@ func _ready():
 func _on_f_ex_area_entered(area):
 	if "Pesho" in area.get_name():
 		queue_free()
+		
