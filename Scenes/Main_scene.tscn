@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Images/Background/background.png" type="Texture" id=1]
+[ext_resource path="res://Images/Background/Background.gd" type="Script" id=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = -25.4558
+margin_top = -89.0955
+margin_right = 1066.54
+margin_bottom = 692.905
+texture = ExtResource( 1 )
+stretch_mode = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
