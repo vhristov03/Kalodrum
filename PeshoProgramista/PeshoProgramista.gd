@@ -64,12 +64,14 @@ func _process(delta):
 		# managing animation visibility
 		$pesho_jump.hide()
 		$pesho_idle.hide()
+		$pesho_hang.hide()
 		$pesho_run.show()
 		
 		# managing character orientation
 		$pesho_run.flip_h = false
 		$pesho_jump.flip_h = false
 		$pesho_idle.flip_h = false
+		$pesho_hang.flip_h = false
 		
 		$AnimationPlayer.play('run')
 	
@@ -78,12 +80,14 @@ func _process(delta):
 		# managing animation visibility
 		$pesho_jump.hide()
 		$pesho_idle.hide()
+		$pesho_hang.hide()
 		$pesho_run.show()
 		
 		# managing character orientation
 		$pesho_run.flip_h = true
 		$pesho_jump.flip_h = true
 		$pesho_idle.flip_h = true
+		$pesho_hang.flip_h = true
 		
 		$AnimationPlayer.play('run')
 	
@@ -93,6 +97,7 @@ func _process(delta):
 		$pesho_run.flip_h = false
 		$pesho_jump.flip_h = false
 		$pesho_idle.flip_h = false
+		$pesho_hang.flip_h = false
 	
 	#w while trying to turn left mid-air
 	if Input.is_action_pressed('ui_left'):
@@ -100,12 +105,14 @@ func _process(delta):
 		$pesho_run.flip_h = true
 		$pesho_jump.flip_h = true
 		$pesho_idle.flip_h = true
+		$pesho_hang.flip_h = true
 	
 	# while pressing up
 	if !is_on_floor():
 		# managing animation visibility
 		$pesho_run.hide()
 		$pesho_idle.hide()
+		$pesho_hang.hide()
 		$pesho_jump.show()
 		
 		$AnimationPlayer.play('jump')
@@ -115,6 +122,7 @@ func _process(delta):
 		# managing animation visibility
 		$pesho_run.hide()
 		$pesho_idle.hide()
+		$pesho_hang.hide()
 		$pesho_jump.show()
 		
 		# managing character orientation
@@ -127,6 +135,7 @@ func _process(delta):
 		# managing animation visibility
 		$pesho_run.hide()
 		$pesho_idle.hide()
+		$pesho_hang.hide()
 		$pesho_jump.show()
 		
 		# managing character orientation
@@ -139,10 +148,17 @@ func _process(delta):
 		# managing animation visibility
 		$pesho_jump.hide()
 		$pesho_run.hide()
+		$pesho_hang.hide()
 		$pesho_idle.show()
 		
 		$AnimationPlayer.play('idle')
 		
+	if !is_on_floor() and is_on_wall():
+		$pesho_jump.hide()
+		$pesho_run.hide()
+		$pesho_idle.hide()
+		$pesho_hang.show()
+	
 	if position.y >= 500:
 		position.x = respawn_x
 		position.y = respawn_y
