@@ -439,6 +439,7 @@ position = Vector2( 3188.87, 325.87 )
 position = Vector2( 4.6251, -25.2269 )
 scale = Vector2( 2.65669, 1.78834 )
 frames = SubResource( 3 )
+frame = 1
 playing = true
 script = ExtResource( 10 )
 
@@ -498,6 +499,29 @@ tile_set = SubResource( 22 )
 cell_size = Vector2( 31, 31 )
 format = 1
 
+[node name="Checkpoint" type="Area2D" parent="."]
+position = Vector2( 1088.79, -118.788 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint"]
+position = Vector2( 0.00524902, -0.397491 )
+shape = SubResource( 23 )
+
+[node name="Sprite" type="Sprite" parent="Checkpoint"]
+position = Vector2( 0, 4.5 )
+scale = Vector2( 1.99113, 1.79787 )
+texture = ExtResource( 14 )
+
+[node name="Checkpoint2" type="Area2D" parent="."]
+position = Vector2( 3020.19, 104.128 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint2"]
+position = Vector2( 0.00524902, -0.397491 )
+shape = SubResource( 23 )
+
+[node name="Sprite" type="Sprite" parent="Checkpoint2"]
+scale = Vector2( 1.55785, 1.64236 )
+texture = ExtResource( 14 )
+
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="sky" type="TextureRect" parent="ParallaxBackground"]
@@ -532,29 +556,6 @@ __meta__ = {
 
 [node name="PeshoProgramista" parent="." instance=ExtResource( 1 )]
 position = Vector2( 181.174, 302.915 )
-
-[node name="Checkpoint" type="Area2D" parent="."]
-position = Vector2( 1088.79, -118.788 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint"]
-position = Vector2( 0.00524902, -0.397491 )
-shape = SubResource( 23 )
-
-[node name="Sprite" type="Sprite" parent="Checkpoint"]
-position = Vector2( 0, 4.5 )
-scale = Vector2( 1.99113, 1.79787 )
-texture = ExtResource( 14 )
-
-[node name="Checkpoint2" type="Area2D" parent="."]
-position = Vector2( 3020.19, 104.128 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint2"]
-position = Vector2( 0.00524902, -0.397491 )
-shape = SubResource( 23 )
-
-[node name="Sprite" type="Sprite" parent="Checkpoint2"]
-scale = Vector2( 1.55785, 1.64236 )
-texture = ExtResource( 14 )
 
 [node name="Finish" type="Sprite" parent="."]
 position = Vector2( 4618.12, 65.435 )
