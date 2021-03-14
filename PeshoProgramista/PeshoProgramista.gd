@@ -16,6 +16,8 @@ var wall_jumps_remaining = 1
 var timer_for_intro = 0
 
 func _ready():
+	respawn_x = position.x
+	respawn_y = position.y
 	pass
 
 
@@ -53,32 +55,27 @@ func get_input():
 		wall_jumps_remaining = 1
 
 func _physics_process(delta):
-	timer_for_intro += 1
+	get_input()
+	velocity.y += gravity * delta
 	
-	# all input is blocked for 40 seconds (the duration of the intro)
-	if timer_for_intro >= 660:
-		
+	if is_jumping and is_on_floor():
+		is_jumping = false
+	
+	if !is_on_floor() and can_double_jump and Input.is_action_just_pressed('ui_up'):
+		velocity.y = jump_speed
+		can_double_jump = false
+	
+	if !is_on_floor() and is_on_wall():
+		can_double_jump = false
+		if !is_flipped:
+			velocity.x -= speed
+		if is_flipped:
+			velocity.x += speed
+		velocity.y = velocity.y * 0.5
+		is_jumping = false
 		get_input()
-		velocity.y += gravity * delta
-		
-		if is_jumping and is_on_floor():
-			is_jumping = false
-		
-		if !is_on_floor() and can_double_jump and Input.is_action_just_pressed('ui_up'):
-			velocity.y = jump_speed
-			can_double_jump = false
-		
-		if !is_on_floor() and is_on_wall():
-			can_double_jump = false
-			if !is_flipped:
-				velocity.x -= speed
-			if is_flipped:
-				velocity.x += speed
-			velocity.y = velocity.y * 0.5
-			is_jumping = false
-			get_input()
-		
-		velocity = move_and_slide(velocity, Vector2(0, -1))
+	
+	velocity = move_and_slide(velocity, Vector2(0, -1))
 
 
 func flip_right():
@@ -204,22 +201,19 @@ func _process(delta):
 		$pesho_hang.hide()
 		$pesho_extinguish.show()
 	
-	if position.y >= 500:
+	if position.y >= 650:
 		position.x = respawn_x
 		position.y = respawn_y
 
 
 
 func _on_Area2D_area_entered(area):
-	if "f_ex" in area.get_name():
-		print("Fire extinguisher picked up")
 	if "Checkpoint" in area.get_name():
 		respawn_x = position.x
 		respawn_y = position.y
 		print("Checkpoint reached")
 	if "Fire" in area.get_name():
 		in_fire_zone = true
-	
 
 
 func _on_Pesho_area_exited(area):

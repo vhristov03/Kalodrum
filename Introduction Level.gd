@@ -7,14 +7,11 @@ func _ready():
 
 
 func _process(delta):
-	if timer_for_intro == 0:
-		$VideoPlayer.show()
-		
-	timer_for_intro += 1
-	
-	if timer_for_intro >= 660:
-		$VideoPlayer.hide()
 	pass
 	
 
+	pass # Replace with function body.
+
+
+func _on_Finish_area_entered(area):
 	pass # Replace with function body.

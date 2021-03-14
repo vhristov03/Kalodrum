@@ -53,7 +53,7 @@ RestHandler="*res://addons/github-integration/scenes/RestHandler.tscn"
 
 window/size/borderless=true
 window/size/fullscreen=true
-window/stretch/mode="viewport"
+window/stretch/mode="2d"
 
 [editor_plugins]
 
@@ -63,6 +63,7 @@ enabled=PoolStringArray( "github-integration" )
 
 pixel=false
 snap=false
+size=false
 
 [input]
 
