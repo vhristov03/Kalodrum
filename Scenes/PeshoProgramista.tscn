@@ -1,0 +1,134 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Images/PeshoProgramista/pesho_walk_cycle.png" type="Texture" id=1]
+[ext_resource path="res://Images/PeshoProgramista/pesho_jump_cycle.png" type="Texture" id=2]
+[ext_resource path="res://Images/PeshoProgramista/pesho_idle.png" type="Texture" id=3]
+[ext_resource path="res://PeshoProgramista/PeshoProgramista.gd" type="Script" id=4]
+[ext_resource path="res://Images/PeshoProgramista/pesho_hang.png" type="Texture" id=5]
+[ext_resource path="res://Images/PeshoProgramista/pesho_extinguisher.png" type="Texture" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 14.5516, 25.6029 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "idle"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("pesho_idle:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "jump"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("pesho_jump:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 2.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "run"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("pesho_run:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 14.6019, 25.4244 )
+
+[node name="PeshoProgramista" type="KinematicBody2D"]
+position = Vector2( 221.03, 275.591 )
+input_pickable = true
+script = ExtResource( 4 )
+
+[node name="pesho_run" type="Sprite" parent="."]
+visible = false
+position = Vector2( -0.173828, -3.74207 )
+scale = Vector2( 0.176257, 0.176257 )
+texture = ExtResource( 1 )
+hframes = 4
+frame = 3
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="pesho_jump" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0.662109, -3.88416 )
+scale = Vector2( 0.200836, 0.200836 )
+texture = ExtResource( 2 )
+hframes = 5
+frame = 3
+
+[node name="pesho_idle" type="Sprite" parent="."]
+position = Vector2( 1.33482, -3.3105 )
+scale = Vector2( 0.176213, 0.176213 )
+texture = ExtResource( 3 )
+hframes = 2
+
+[node name="pesho_hang" type="Sprite" parent="."]
+position = Vector2( 0.0908813, -2.4126 )
+scale = Vector2( 0.181029, 0.189188 )
+texture = ExtResource( 5 )
+
+[node name="pesho_extinguish" type="Sprite" parent="."]
+position = Vector2( 1.65192, -2.80676 )
+scale = Vector2( 0.176469, 0.176469 )
+texture = ExtResource( 6 )
+
+[node name="collision_box" type="CollisionShape2D" parent="."]
+position = Vector2( -0.304045, -4.06625 )
+scale = Vector2( 0.771356, 0.9443 )
+shape = SubResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( -2.12659, -17.6638 )
+offset = Vector2( 0, -45 )
+current = true
+limit_left = 0
+limit_bottom = 1000
+drag_margin_v_enabled = true
+smoothing_enabled = true
+smoothing_speed = 10.0
+drag_margin_top = 0.6
+drag_margin_bottom = 0.01
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/idle = SubResource( 2 )
+anims/jump = SubResource( 3 )
+anims/run = SubResource( 4 )
+
+[node name="Pesho" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pesho"]
+position = Vector2( 0, -4.20447 )
+shape = SubResource( 5 )
+[connection signal="area_entered" from="Pesho" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_exited" from="Pesho" to="." method="_on_Pesho_area_exited"]
