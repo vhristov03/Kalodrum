@@ -1,6 +1,6 @@
 # Kalodrum
-5 spreltaci studios
+5 spreltaci  
+Kato cqlo tva e  
 #
-Pesho for nature
 
 

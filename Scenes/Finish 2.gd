@@ -22,5 +22,5 @@ func _on_Fire_tree_exited():
 
 func _on_Finish_area_entered(area):
 	if "Pesho" in area.get_name() and fires_extinguished == 3:
-		print("ma to raboti")
+		get_tree().change_scene("res://Scenes/Credits.tscn")
 	pass
